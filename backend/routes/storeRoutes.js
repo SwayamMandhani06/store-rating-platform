@@ -3,11 +3,12 @@ const router = express.Router();
 const { listStoresForUser, submitRating, getStoreDetail } = require('../controllers/storeController');
 const { authenticate, authorize } = require('../middleware/auth');
 
-router.use(authenticate, authorize('user'));
+// Store rating distribution breakdown is readable by any authenticated user
+router.get('/:storeId', authenticate, getStoreDetail);
 
-router.get('/', listStoresForUser);
-router.get('/:storeId', getStoreDetail);
-router.post('/:storeId/ratings', submitRating);
-router.put('/:storeId/ratings', submitRating);
+// Normal User actions
+router.get('/', authenticate, authorize('user'), listStoresForUser);
+router.post('/:storeId/ratings', authenticate, authorize('user'), submitRating);
+router.put('/:storeId/ratings', authenticate, authorize('user'), submitRating);
 
 module.exports = router;

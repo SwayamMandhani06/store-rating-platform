@@ -7,11 +7,13 @@ import {
   Download,
   Inbox,
   Clock,
+  BarChart2,
 } from 'lucide-react';
 import api from '../../api/axios';
 import Navbar from '../../components/Navbar';
 import SortableTable from '../../components/SortableTable';
 import StarRating from '../../components/StarRating';
+import StoreDetailModal from '../../components/StoreDetailModal';
 import { CardSkeleton } from '../../components/Skeleton';
 import { exportToCSV } from '../../utils/csvExport';
 
@@ -21,6 +23,7 @@ export default function OwnerDashboard() {
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState('submittedAt');
   const [order, setOrder] = useState('desc');
+  const [showBreakdown, setShowBreakdown] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -150,19 +153,29 @@ export default function OwnerDashboard() {
 
               <div className="flex items-center gap-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 shrink-0">
                 {data.averageRating ? (
-                  <div>
-                    <div className="flex items-baseline gap-2">
-                      <span className="font-heading text-3xl font-bold text-slate-900 dark:text-white">
-                        {data.averageRating.toFixed(1)}
-                      </span>
-                      <span className="text-xs text-slate-400 dark:text-slate-500 font-medium">/ 5.0</span>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div>
+                      <div className="flex items-baseline gap-2">
+                        <span className="font-heading text-3xl font-bold text-slate-900 dark:text-white">
+                          {data.averageRating.toFixed(1)}
+                        </span>
+                        <span className="text-xs text-slate-400 dark:text-slate-500 font-medium">/ 5.0</span>
+                      </div>
+                      <div className="flex items-center gap-2 mt-1">
+                        <StarRating value={data.averageRating} size="w-4 h-4" />
+                        <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                          ({data.totalRatings} review{data.totalRatings === 1 ? '' : 's'})
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2 mt-1">
-                      <StarRating value={data.averageRating} size="w-4 h-4" />
-                      <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                        ({data.totalRatings} review{data.totalRatings === 1 ? '' : 's'})
-                      </span>
-                    </div>
+                    <button
+                      onClick={() => setShowBreakdown(true)}
+                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-brand-700 dark:text-brand-300 bg-brand-50 dark:bg-brand-950/60 hover:bg-brand-100 dark:hover:bg-brand-900/60 border border-brand-200/80 dark:border-brand-800/60 transition-colors"
+                      title="View Rating Breakdown"
+                    >
+                      <BarChart2 className="w-3.5 h-3.5" />
+                      <span>Breakdown</span>
+                    </button>
                   </div>
                 ) : (
                   <div className="text-xs text-slate-400 dark:text-slate-500">
@@ -193,6 +206,14 @@ export default function OwnerDashboard() {
           </>
         ) : null}
       </main>
+
+      {/* Rating Breakdown Modal */}
+      {showBreakdown && data?.store?.id && (
+        <StoreDetailModal
+          storeId={data.store.id}
+          onClose={() => setShowBreakdown(false)}
+        />
+      )}
     </div>
   );
 }

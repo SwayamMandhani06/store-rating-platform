@@ -5,6 +5,7 @@ import {
   Download,
   Search,
   Store,
+  BarChart2,
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
@@ -12,6 +13,7 @@ import api from '../../api/axios';
 import Navbar from '../../components/Navbar';
 import SortableTable from '../../components/SortableTable';
 import StarRating from '../../components/StarRating';
+import StoreDetailModal from '../../components/StoreDetailModal';
 import { TableSkeleton } from '../../components/Skeleton';
 import { exportToCSV } from '../../utils/csvExport';
 
@@ -24,6 +26,7 @@ export default function AdminStores() {
   const [order, setOrder] = useState('asc');
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const [selectedStoreId, setSelectedStoreId] = useState(null);
 
   const fetchStores = useCallback(async () => {
     setLoading(true);
@@ -85,6 +88,20 @@ export default function AdminStores() {
         ) : (
           <span className="text-xs text-slate-400 dark:text-slate-500 font-normal">Unrated</span>
         ),
+    },
+    {
+      key: 'actions',
+      label: '',
+      render: (r) => (
+        <button
+          onClick={() => setSelectedStoreId(r.id)}
+          className="inline-flex items-center gap-1 text-xs font-semibold text-brand-700 dark:text-brand-300 hover:text-brand-800 dark:hover:text-brand-200 bg-brand-50 dark:bg-brand-950/60 hover:bg-brand-100 dark:hover:bg-brand-900/60 px-2.5 py-1 rounded-lg transition-colors"
+          title="View Rating Breakdown"
+        >
+          <BarChart2 className="w-3.5 h-3.5" />
+          <span>Breakdown</span>
+        </button>
+      ),
     },
   ];
 
@@ -155,7 +172,7 @@ export default function AdminStores() {
 
         {/* Content Table & Pagination */}
         {loading ? (
-          <TableSkeleton rows={6} cols={4} />
+          <TableSkeleton rows={6} cols={5} />
         ) : (
           <div className="space-y-4">
             <SortableTable
@@ -199,6 +216,14 @@ export default function AdminStores() {
           </div>
         )}
       </main>
+
+      {/* Rating Breakdown Modal */}
+      {selectedStoreId && (
+        <StoreDetailModal
+          storeId={selectedStoreId}
+          onClose={() => setSelectedStoreId(null)}
+        />
+      )}
     </div>
   );
 }
