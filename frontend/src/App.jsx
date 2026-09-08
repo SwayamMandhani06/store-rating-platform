@@ -1,10 +1,11 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from './context/AuthContext';
+import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 
+import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ChangePassword from './pages/ChangePassword';
+import NotFound from './pages/NotFound';
 
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminUsers from './pages/admin/AdminUsers';
@@ -16,22 +17,15 @@ import AddStore from './pages/admin/AddStore';
 import StoreList from './pages/user/StoreList';
 import OwnerDashboard from './pages/owner/OwnerDashboard';
 
-function RoleHome() {
-  const { user, loading } = useAuth();
-  if (loading) return <div className="flex h-screen items-center justify-center text-slate-500">Loading...</div>;
-  if (!user) return <Navigate to="/login" replace />;
-  if (user.role === 'admin') return <Navigate to="/admin" replace />;
-  if (user.role === 'owner') return <Navigate to="/owner" replace />;
-  return <Navigate to="/stores" replace />;
-}
-
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<RoleHome />} />
+      {/* Public Landing Page */}
+      <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
 
+      {/* Shared Authenticated Routes */}
       <Route
         path="/change-password"
         element={
@@ -41,7 +35,7 @@ export default function App() {
         }
       />
 
-      {/* Admin */}
+      {/* Admin Protected Routes */}
       <Route
         path="/admin"
         element={
@@ -91,7 +85,7 @@ export default function App() {
         }
       />
 
-      {/* Normal User */}
+      {/* Normal User Protected Routes */}
       <Route
         path="/stores"
         element={
@@ -101,7 +95,7 @@ export default function App() {
         }
       />
 
-      {/* Store Owner */}
+      {/* Store Owner Protected Routes */}
       <Route
         path="/owner"
         element={
@@ -111,7 +105,8 @@ export default function App() {
         }
       />
 
-      <Route path="*" element={<Navigate to="/" replace />} />
+      {/* 404 Unmatched Routes */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

@@ -1,8 +1,15 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { User, Mail, MapPin, Lock, Loader2, UserPlus, ArrowRight } from 'lucide-react';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
-import { validateName, validateEmail, validatePassword, validateAddress } from '../utils/validators';
+import { useToast } from '../context/ToastContext';
+import {
+  validateName,
+  validateEmail,
+  validatePassword,
+  validateAddress,
+} from '../utils/validators';
 
 export default function Signup() {
   const [form, setForm] = useState({ name: '', email: '', address: '', password: '' });
@@ -10,6 +17,7 @@ export default function Signup() {
   const [serverError, setServerError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
+  const { showToast } = useToast();
   const navigate = useNavigate();
 
   function update(field, value) {
@@ -36,9 +44,12 @@ export default function Signup() {
     try {
       const res = await api.post('/auth/signup', form);
       login(res.data.token, res.data.user);
+      showToast('Welcome to StoreRate! Your account has been created.', 'success');
       navigate('/stores');
     } catch (err) {
-      setServerError(err.response?.data?.message || 'Signup failed. Please try again.');
+      const msg = err.response?.data?.message || 'Signup failed. Please try again.';
+      setServerError(msg);
+      showToast(msg, 'error');
       if (err.response?.data?.errors) setErrors((e) => ({ ...e, ...err.response.data.errors }));
     } finally {
       setLoading(false);
@@ -46,78 +57,120 @@ export default function Signup() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 py-10">
-      <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-sm border border-slate-200">
-        <h1 className="text-2xl font-bold text-brand-700 mb-1">Create your account</h1>
-        <p className="text-slate-500 text-sm mb-6">Sign up as a Normal User to rate stores</p>
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 py-12">
+      <div className="w-full max-w-lg bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
+        <div className="text-center mb-6">
+          <Link to="/" className="inline-flex items-center gap-2 mb-2 group">
+            <div className="w-8 h-8 rounded-xl bg-brand-600 flex items-center justify-center text-white font-heading font-bold text-sm">
+              S
+            </div>
+            <span className="font-heading font-bold text-xl tracking-tight text-slate-900">
+              Store<span className="text-brand-600">Rate</span>
+            </span>
+          </Link>
+          <h1 className="text-2xl font-bold font-heading text-slate-900">Create your account</h1>
+          <p className="text-slate-500 text-xs mt-1">Sign up as a Normal User to browse and review stores</p>
+        </div>
 
         {serverError && (
-          <div className="mb-4 rounded-md bg-red-50 text-red-700 text-sm px-3 py-2">{serverError}</div>
+          <div className="mb-4 rounded-xl bg-red-50 text-red-700 text-xs p-3.5 border border-red-200">
+            {serverError}
+          </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4" noValidate>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
-              Full Name <span className="text-slate-400 font-normal">(20-60 characters)</span>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+              Full Name <span className="text-slate-400 font-normal lowercase">(20-60 characters)</span>
             </label>
-            <input
-              value={form.name}
-              onChange={(e) => update('name', e.target.value)}
-              className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
-            />
+            <div className="relative">
+              <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+              <input
+                value={form.name}
+                onChange={(e) => update('name', e.target.value)}
+                placeholder="e.g. Alexander Thomas Wright"
+                className="w-full rounded-xl border border-slate-300 pl-10 pr-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              />
+            </div>
             {errors.name && <p className="text-xs text-red-600 mt-1">{errors.name}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
-            <input
-              type="email"
-              value={form.email}
-              onChange={(e) => update('email', e.target.value)}
-              className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
-            />
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+              Email Address
+            </label>
+            <div className="relative">
+              <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+              <input
+                type="email"
+                value={form.email}
+                onChange={(e) => update('email', e.target.value)}
+                placeholder="you@example.com"
+                className="w-full rounded-xl border border-slate-300 pl-10 pr-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              />
+            </div>
             {errors.email && <p className="text-xs text-red-600 mt-1">{errors.email}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
-              Address <span className="text-slate-400 font-normal">(max 400 characters)</span>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+              Address <span className="text-slate-400 font-normal lowercase">(max 400 characters)</span>
             </label>
-            <textarea
-              value={form.address}
-              onChange={(e) => update('address', e.target.value)}
-              rows={3}
-              className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
-            />
+            <div className="relative">
+              <MapPin className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+              <textarea
+                value={form.address}
+                onChange={(e) => update('address', e.target.value)}
+                rows={3}
+                placeholder="Residential or business address"
+                className="w-full rounded-xl border border-slate-300 pl-10 pr-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              />
+            </div>
             {errors.address && <p className="text-xs text-red-600 mt-1">{errors.address}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
-              Password <span className="text-slate-400 font-normal">(8-16 chars, 1 uppercase, 1 special)</span>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+              Password <span className="text-slate-400 font-normal lowercase">(8-16 chars, 1 uppercase, 1 special)</span>
             </label>
-            <input
-              type="password"
-              value={form.password}
-              onChange={(e) => update('password', e.target.value)}
-              className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
-            />
+            <div className="relative">
+              <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+              <input
+                type="password"
+                value={form.password}
+                onChange={(e) => update('password', e.target.value)}
+                placeholder="Create a strong password"
+                className="w-full rounded-xl border border-slate-300 pl-10 pr-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              />
+            </div>
             {errors.password && <p className="text-xs text-red-600 mt-1">{errors.password}</p>}
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-brand-600 hover:bg-brand-700 disabled:opacity-60 text-white font-medium py-2 rounded-md text-sm"
-          >
-            {loading ? 'Creating account...' : 'Sign Up'}
-          </button>
+          <div className="pt-2">
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full inline-flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 disabled:opacity-60 text-white font-semibold py-2.5 rounded-xl text-sm shadow-xs transition-colors"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Creating Account...</span>
+                </>
+              ) : (
+                <>
+                  <UserPlus className="w-4 h-4" />
+                  <span>Complete Registration</span>
+                </>
+              )}
+            </button>
+          </div>
         </form>
 
-        <p className="text-sm text-slate-500 mt-6 text-center">
-          Already have an account?{' '}
-          <Link to="/login" className="text-brand-700 font-medium hover:underline">
-            Log in
+        <p className="text-xs text-slate-500 mt-6 text-center">
+          Already registered?{' '}
+          <Link to="/login" className="text-brand-700 font-semibold hover:underline">
+            Log in to existing account
           </Link>
         </p>
       </div>
