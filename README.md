@@ -208,9 +208,6 @@ GET    /api/owner/dashboard           Store details, aggregate rating, list of r
 | Store Directory & Ratings | Rating Distribution Modal |
 |:---:|:---:|
 | ![Store Directory](docs/screenshots/store-directory.png) | ![Rating Distribution](docs/screenshots/rating-distribution.png) |
-
-*(Place project UI captures into `docs/screenshots/` to display preview previews in GitHub).*
-
 ---
 
 ## 8. Limitations & Extensions
