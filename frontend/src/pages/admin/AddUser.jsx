@@ -55,52 +55,52 @@ export default function AddUser() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col">
       <Navbar />
 
       <main className="max-w-xl mx-auto px-4 py-10 w-full space-y-6 flex-1">
         <div>
           <Link
             to="/admin/users"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to User Directory</span>
           </Link>
-          <h1 className="font-heading text-2xl font-bold text-slate-900 mt-2">
+          <h1 className="font-heading text-2xl font-bold text-slate-900 dark:text-white mt-2">
             Create System Account
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Provision a new account with customized role assignments.
           </p>
         </div>
 
         {serverError && (
-          <div className="p-3.5 rounded-xl bg-red-50 text-red-700 text-xs border border-red-200">
+          <div className="p-3.5 rounded-xl bg-red-50 dark:bg-red-950/50 text-red-700 dark:text-red-400 text-xs border border-red-200 dark:border-red-900">
             {serverError}
           </div>
         )}
 
         <form
           onSubmit={handleSubmit}
-          className="bg-white p-7 rounded-2xl border border-slate-200/90 shadow-xs space-y-4"
+          className="bg-white dark:bg-slate-900 p-7 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-4"
           noValidate
         >
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
-              Full Name <span className="text-slate-400 font-normal lowercase">(20-60 characters)</span>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1">
+              Full Name <span className="text-slate-400 dark:text-slate-500 font-normal lowercase">(20-60 characters)</span>
             </label>
             <input
               value={form.name}
               onChange={(e) => update('name', e.target.value)}
               placeholder="e.g. Marcus Alexander Vance"
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
             />
-            {errors.name && <p className="text-xs text-red-600 mt-1">{errors.name}</p>}
+            {errors.name && <p className="text-xs text-red-600 dark:text-red-400 mt-1">{errors.name}</p>}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1">
               Email Address
             </label>
             <input
@@ -108,47 +108,47 @@ export default function AddUser() {
               value={form.email}
               onChange={(e) => update('email', e.target.value)}
               placeholder="user@example.com"
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
             />
-            {errors.email && <p className="text-xs text-red-600 mt-1">{errors.email}</p>}
+            {errors.email && <p className="text-xs text-red-600 dark:text-red-400 mt-1">{errors.email}</p>}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
-              Address <span className="text-slate-400 font-normal lowercase">(max 400 characters)</span>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1">
+              Address <span className="text-slate-400 dark:text-slate-500 font-normal lowercase">(max 400 characters)</span>
             </label>
             <textarea
               value={form.address}
               onChange={(e) => update('address', e.target.value)}
               rows={3}
               placeholder="Street, Suite, City, State"
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
             />
-            {errors.address && <p className="text-xs text-red-600 mt-1">{errors.address}</p>}
+            {errors.address && <p className="text-xs text-red-600 dark:text-red-400 mt-1">{errors.address}</p>}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
-              Initial Password <span className="text-slate-400 font-normal lowercase">(8-16 chars, 1 uppercase, 1 special)</span>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1">
+              Initial Password <span className="text-slate-400 dark:text-slate-500 font-normal lowercase">(8-16 chars, 1 uppercase, 1 special)</span>
             </label>
             <input
               type="password"
               value={form.password}
               onChange={(e) => update('password', e.target.value)}
               placeholder="Create strong password"
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
             />
-            {errors.password && <p className="text-xs text-red-600 mt-1">{errors.password}</p>}
+            {errors.password && <p className="text-xs text-red-600 dark:text-red-400 mt-1">{errors.password}</p>}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1">
               Platform Role
             </label>
             <select
               value={form.role}
               onChange={(e) => update('role', e.target.value)}
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 px-3.5 py-2.5 text-sm bg-white dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
             >
               <option value="user">Normal User (Store Reviewer)</option>
               <option value="admin">System Administrator</option>

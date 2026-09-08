@@ -36,7 +36,14 @@ A full-stack web application connecting Normal Users to browse and rate local St
 
 ---
 
-## 2. Features by Role
+## 2. Key Highlights & Features by Role
+
+### 🌓 Theme Switcher (Light & Dark Mode)
+- **Class-based Tailwind Strategy**: User-controlled toggle with system preference detection fallback (`prefers-color-scheme`).
+- **No Theme Flash (FOUC)**: Inline pre-render bootstrap script prevents white flashes on page loads.
+- **Persistent Choice**: Stored in `localStorage` across page reloads.
+- **Micro-animated UI**: Smooth icon spin and subtle ~200ms background transition respecting `prefers-reduced-motion`.
+- **Accessible Across All Screens**: Available in public header and navigation bar across all role dashboards.
 
 ### 🛡️ System Administrator
 - **Analytics Dashboard**: Real-time totals for users, registered stores, and ratings; top 5 highest-rated venues, recent signups, and rating spread bar charts.
@@ -143,18 +150,20 @@ Visit `http://localhost:5173` in your browser.
 ## 5. Demo Accounts
 
 > [!NOTE]
-> All demo accounts are seeded via `npm run seed:demo` and are for challenge evaluation purposes only. You can also click any card on the [Login Page](http://localhost:5173/login) for instant one-click login.
+> All demo accounts are seeded with authentic Indian names, stores, and addresses via `npm run seed:demo`. You can also click any pre-filled role card on the [Login Page](http://localhost:5173/login) for instant one-click login.
 
-| Role | Email | Password | Description |
-|---|---|---|---|
-| **System Administrator** | `admin@storerating.com` | `Admin@1234` | Full platform dashboard, user and store creation, exports |
-| **Store Owner (Cafe)** | `owner.cafe@storerating.com` | `Owner@1234` | The Roasted Bean Artisan Cafe (5 reviews, ~4.6 avg) |
-| **Store Owner (Books)** | `owner.books@storerating.com` | `Owner@1234` | Chapter & Verse Rare Books (4 reviews, 4.0 avg) |
-| **Store Owner (Tech)** | `owner.tech@storerating.com` | `Owner@1234` | Apex Circuit Audio & Tech (4 reviews, 3.0 avg) |
-| **Store Owner (Bakery)** | `owner.bakery@storerating.com` | `Owner@1234` | Golden Crumb French Patisserie (5 reviews, 4.8 avg) |
-| **Store Owner (Gym)** | `owner.gym@storerating.com` | `Owner@1234` | Ironclad Athletic Performance *(0 reviews - empty state test)* |
-| **Normal User** | `alex.wright@demo.com` | `User@1234` | Reviewer account with multiple submitted ratings |
-| **Normal User** | `sam.jenkins@demo.com` | `User@1234` | Reviewer account with ratings |
+| Role | Name | Email | Password | Details / Store |
+|---|---|---|---|---|
+| **System Administrator** | `Rajeshwar Prasad Srivastava` | `admin@storerating.com` | `Admin@1234` | Full platform control, metrics & user management |
+| **Store Owner** | `Lakshmi Priya Subramaniam` | `lakshmi.subramaniam@gmail.com` | `Owner@1234` | Nair's South Indian Delicacies (Indiranagar, Bengaluru) |
+| **Store Owner** | `Nileshkumar Rajesh Patel` | `nilesh.patel@gmail.com` | `Owner@1234` | Patel Electronics Emporium (Navrangpura, Ahmedabad) |
+| **Store Owner** | `Priyanka Deshmukh Joshi` | `priyanka.joshi@gmail.com` | `Owner@1234` | Annapurna Sweets & Tiffin (Koregaon Park, Pune) |
+| **Store Owner** | `Ananya Chattopadhyay Banerjee`| `ananya.banerjee@gmail.com` | `Owner@1234` | Bandra Book Nook (Bandra West, Mumbai) |
+| **Store Owner** | `Harpreet Singh Chadha` | `harpreet.chadha@gmail.com` | `Owner@1234` | Singh Automobile Workshop (Sector 18, Chandigarh) |
+| **Store Owner** | `Venkata Sai Krishna Reddy` | `krishna.reddy@gmail.com` | `Owner@1234` | Chettinad Spice House *(0 ratings - empty state testing)* |
+| **Normal User** | `Sourav Mukherjee Dutta` | `sourav.dutta@gmail.com` | `User@1234` | Reviewer (Park Street, Kolkata) |
+| **Normal User** | `Ananya Kapoor Malhotra` | `ananya.malhotra@gmail.com` | `User@1234` | Reviewer (Greater Kailash, New Delhi) |
+| **Normal User** | `Rajeshwari Venkataraman Iyer` | `rajeshwari.iyer@gmail.com` | `User@1234` | Reviewer (Mylapore, Chennai) |
 
 ---
 

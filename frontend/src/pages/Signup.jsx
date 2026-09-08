@@ -4,6 +4,7 @@ import { User, Mail, MapPin, Lock, Loader2, UserPlus, ArrowRight } from 'lucide-
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
+import ThemeToggle from '../components/ThemeToggle';
 import {
   validateName,
   validateEmail,
@@ -44,7 +45,7 @@ export default function Signup() {
     try {
       const res = await api.post('/auth/signup', form);
       login(res.data.token, res.data.user);
-      showToast('Welcome to StoreRate! Your account has been created.', 'success');
+      showToast('Welcome to StoreRate! Your reviewer account has been created.', 'success');
       navigate('/stores');
     } catch (err) {
       const msg = err.response?.data?.message || 'Signup failed. Please try again.';
@@ -57,30 +58,34 @@ export default function Signup() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 py-12">
-      <div className="w-full max-w-lg bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 px-4 py-12 transition-colors relative">
+      <div className="absolute top-6 right-6">
+        <ThemeToggle />
+      </div>
+
+      <div className="w-full max-w-lg bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800">
         <div className="text-center mb-6">
           <Link to="/" className="inline-flex items-center gap-2 mb-2 group">
             <div className="w-8 h-8 rounded-xl bg-brand-600 flex items-center justify-center text-white font-heading font-bold text-sm">
               S
             </div>
-            <span className="font-heading font-bold text-xl tracking-tight text-slate-900">
-              Store<span className="text-brand-600">Rate</span>
+            <span className="font-heading font-bold text-xl tracking-tight text-slate-900 dark:text-white">
+              Store<span className="text-brand-600 dark:text-brand-400">Rate</span>
             </span>
           </Link>
-          <h1 className="text-2xl font-bold font-heading text-slate-900">Create your account</h1>
-          <p className="text-slate-500 text-xs mt-1">Sign up as a Normal User to browse and review stores</p>
+          <h1 className="text-2xl font-bold font-heading text-slate-900 dark:text-white">Create your account</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">Sign up as a Normal User to browse and review stores</p>
         </div>
 
         {serverError && (
-          <div className="mb-4 rounded-xl bg-red-50 text-red-700 text-xs p-3.5 border border-red-200">
+          <div className="mb-4 rounded-xl bg-red-50 dark:bg-red-950/50 text-red-700 dark:text-red-300 text-xs p-3.5 border border-red-200 dark:border-red-900">
             {serverError}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4" noValidate>
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1">
               Full Name <span className="text-slate-400 font-normal lowercase">(20-60 characters)</span>
             </label>
             <div className="relative">
@@ -88,15 +93,15 @@ export default function Signup() {
               <input
                 value={form.name}
                 onChange={(e) => update('name', e.target.value)}
-                placeholder="e.g. Alexander Thomas Wright"
-                className="w-full rounded-xl border border-slate-300 pl-10 pr-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+                placeholder="e.g. Rajeshwari Venkataraman Iyer"
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 dark:text-white px-3.5 pl-10 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
               />
             </div>
-            {errors.name && <p className="text-xs text-red-600 mt-1">{errors.name}</p>}
+            {errors.name && <p className="text-xs text-red-600 dark:text-red-400 mt-1">{errors.name}</p>}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1">
               Email Address
             </label>
             <div className="relative">
@@ -105,15 +110,15 @@ export default function Signup() {
                 type="email"
                 value={form.email}
                 onChange={(e) => update('email', e.target.value)}
-                placeholder="you@example.com"
-                className="w-full rounded-xl border border-slate-300 pl-10 pr-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+                placeholder="you@gmail.com"
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 dark:text-white px-3.5 pl-10 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
               />
             </div>
-            {errors.email && <p className="text-xs text-red-600 mt-1">{errors.email}</p>}
+            {errors.email && <p className="text-xs text-red-600 dark:text-red-400 mt-1">{errors.email}</p>}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1">
               Address <span className="text-slate-400 font-normal lowercase">(max 400 characters)</span>
             </label>
             <div className="relative">
@@ -122,15 +127,15 @@ export default function Signup() {
                 value={form.address}
                 onChange={(e) => update('address', e.target.value)}
                 rows={3}
-                placeholder="Residential or business address"
-                className="w-full rounded-xl border border-slate-300 pl-10 pr-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+                placeholder="Locality, City, State, PIN Code"
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 dark:text-white px-3.5 pl-10 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
               />
             </div>
-            {errors.address && <p className="text-xs text-red-600 mt-1">{errors.address}</p>}
+            {errors.address && <p className="text-xs text-red-600 dark:text-red-400 mt-1">{errors.address}</p>}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1">
               Password <span className="text-slate-400 font-normal lowercase">(8-16 chars, 1 uppercase, 1 special)</span>
             </label>
             <div className="relative">
@@ -140,10 +145,10 @@ export default function Signup() {
                 value={form.password}
                 onChange={(e) => update('password', e.target.value)}
                 placeholder="Create a strong password"
-                className="w-full rounded-xl border border-slate-300 pl-10 pr-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 dark:text-white px-3.5 pl-10 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
               />
             </div>
-            {errors.password && <p className="text-xs text-red-600 mt-1">{errors.password}</p>}
+            {errors.password && <p className="text-xs text-red-600 dark:text-red-400 mt-1">{errors.password}</p>}
           </div>
 
           <div className="pt-2">
@@ -167,9 +172,9 @@ export default function Signup() {
           </div>
         </form>
 
-        <p className="text-xs text-slate-500 mt-6 text-center">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-6 text-center">
           Already registered?{' '}
-          <Link to="/login" className="text-brand-700 font-semibold hover:underline">
+          <Link to="/login" className="text-brand-600 dark:text-brand-400 font-semibold hover:underline">
             Log in to existing account
           </Link>
         </p>

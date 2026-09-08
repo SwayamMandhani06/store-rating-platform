@@ -19,9 +19,9 @@ import { TableSkeleton } from '../../components/Skeleton';
 import { exportToCSV } from '../../utils/csvExport';
 
 const ROLE_CONFIG = {
-  admin: { label: 'Admin', icon: Shield, badge: 'bg-admin-50 text-admin-700 border-admin-200' },
-  owner: { label: 'Store Owner', icon: Briefcase, badge: 'bg-owner-50 text-owner-700 border-owner-200' },
-  user: { label: 'Normal User', icon: User, badge: 'bg-user-50 text-user-700 border-user-200' },
+  admin: { label: 'Admin', icon: Shield, badge: 'bg-admin-50 dark:bg-admin-950/60 text-admin-700 dark:text-admin-300 border-admin-200 dark:border-admin-800/60' },
+  owner: { label: 'Store Owner', icon: Briefcase, badge: 'bg-owner-50 dark:bg-owner-950/60 text-owner-700 dark:text-owner-300 border-owner-200 dark:border-owner-800/60' },
+  user: { label: 'Normal User', icon: User, badge: 'bg-user-50 dark:bg-user-950/60 text-user-700 dark:text-user-300 border-user-200 dark:border-user-800/60' },
 };
 
 const ITEMS_PER_PAGE = 8;
@@ -101,7 +101,7 @@ export default function AdminUsers() {
       render: (r) => (
         <button
           onClick={() => navigate(`/admin/users/${r.id}`)}
-          className="inline-flex items-center gap-1 text-xs font-semibold text-brand-700 hover:text-brand-800 bg-brand-50 hover:bg-brand-100 px-2.5 py-1 rounded-lg transition-colors"
+          className="inline-flex items-center gap-1 text-xs font-semibold text-brand-700 dark:text-brand-300 hover:text-brand-800 dark:hover:text-brand-200 bg-brand-50 dark:bg-brand-950/60 hover:bg-brand-100 dark:hover:bg-brand-900/60 px-2.5 py-1 rounded-lg transition-colors"
         >
           <Eye className="w-3.5 h-3.5" />
           <span>Inspect</span>
@@ -111,16 +111,16 @@ export default function AdminUsers() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col">
       <Navbar />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-6 flex-1">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="font-heading text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+            <h1 className="font-heading text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
               User Directory
             </h1>
-            <p className="text-sm text-slate-500 mt-1">
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
               Browse, filter, and inspect registered system accounts ({users.length} total).
             </p>
           </div>
@@ -128,10 +128,10 @@ export default function AdminUsers() {
             <button
               onClick={handleExport}
               disabled={loading || users.length === 0}
-              className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-sm font-semibold shadow-xs disabled:opacity-50 transition-colors"
+              className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm font-semibold shadow-xs disabled:opacity-50 transition-colors"
               title="Export as CSV"
             >
-              <Download className="w-4 h-4 text-slate-500" />
+              <Download className="w-4 h-4 text-slate-500 dark:text-slate-400" />
               <span>Export CSV</span>
             </button>
             <Link
@@ -145,40 +145,40 @@ export default function AdminUsers() {
         </div>
 
         {/* Filter Bar */}
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <div className="relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+            <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-3" />
             <input
               placeholder="Filter by name..."
               value={filters.name}
               onChange={(e) => setFilters((f) => ({ ...f, name: e.target.value }))}
-              className="w-full rounded-xl border border-slate-300 pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
             />
           </div>
           <div className="relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+            <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-3" />
             <input
               placeholder="Filter by email..."
               value={filters.email}
               onChange={(e) => setFilters((f) => ({ ...f, email: e.target.value }))}
-              className="w-full rounded-xl border border-slate-300 pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
             />
           </div>
           <div className="relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+            <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-3" />
             <input
               placeholder="Filter by address..."
               value={filters.address}
               onChange={(e) => setFilters((f) => ({ ...f, address: e.target.value }))}
-              className="w-full rounded-xl border border-slate-300 pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
             />
           </div>
           <div className="relative">
-            <Filter className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+            <Filter className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-3" />
             <select
               value={filters.role}
               onChange={(e) => setFilters((f) => ({ ...f, role: e.target.value }))}
-              className="w-full rounded-xl border border-slate-300 pl-9 pr-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 pl-9 pr-3 py-2 text-sm bg-white dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
             >
               <option value="">All Roles</option>
               <option value="admin">System Administrator</option>
@@ -204,7 +204,7 @@ export default function AdminUsers() {
 
             {/* Pagination Controls */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-between px-2 pt-2 text-xs text-slate-500">
+              <div className="flex items-center justify-between px-2 pt-2 text-xs text-slate-500 dark:text-slate-400">
                 <span>
                   Showing {(page - 1) * ITEMS_PER_PAGE + 1} to{' '}
                   {Math.min(page * ITEMS_PER_PAGE, users.length)} of {users.length} accounts
@@ -213,18 +213,18 @@ export default function AdminUsers() {
                   <button
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                     disabled={page === 1}
-                    className="p-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 disabled:opacity-40 transition-colors"
+                    className="p-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 disabled:opacity-40 transition-colors"
                     aria-label="Previous page"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
-                  <span className="font-semibold text-slate-700">
+                  <span className="font-semibold text-slate-700 dark:text-slate-300">
                     Page {page} of {totalPages}
                   </span>
                   <button
                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                     disabled={page === totalPages}
-                    className="p-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 disabled:opacity-40 transition-colors"
+                    className="p-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 disabled:opacity-40 transition-colors"
                     aria-label="Next page"
                   >
                     <ChevronRight className="w-4 h-4" />

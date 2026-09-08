@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-slate-50 text-slate-900;
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased selection:bg-brand-500/20 selection:text-brand-600;
+    transition-property: background-color, border-color, color;
+    transition-duration: 200ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body, * {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
 }

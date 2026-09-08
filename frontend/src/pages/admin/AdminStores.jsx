@@ -78,27 +78,27 @@ export default function AdminStores() {
         r.rating ? (
           <span className="inline-flex items-center gap-2">
             <StarRating value={r.rating} size="w-3.5 h-3.5" />
-            <span className="font-heading font-bold text-slate-800 text-sm">
+            <span className="font-heading font-bold text-slate-800 dark:text-slate-200 text-sm">
               {r.rating.toFixed(1)}
             </span>
           </span>
         ) : (
-          <span className="text-xs text-slate-400 font-normal">Unrated</span>
+          <span className="text-xs text-slate-400 dark:text-slate-500 font-normal">Unrated</span>
         ),
     },
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col">
       <Navbar />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-6 flex-1">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="font-heading text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+            <h1 className="font-heading text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
               Registered Stores
             </h1>
-            <p className="text-sm text-slate-500 mt-1">
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
               Inspect venues, verify contacts, and track average scores ({stores.length} total).
             </p>
           </div>
@@ -106,10 +106,10 @@ export default function AdminStores() {
             <button
               onClick={handleExport}
               disabled={loading || stores.length === 0}
-              className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-sm font-semibold shadow-xs disabled:opacity-50 transition-colors"
+              className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm font-semibold shadow-xs disabled:opacity-50 transition-colors"
               title="Export as CSV"
             >
-              <Download className="w-4 h-4 text-slate-500" />
+              <Download className="w-4 h-4 text-slate-500 dark:text-slate-400" />
               <span>Export CSV</span>
             </button>
             <Link
@@ -123,32 +123,32 @@ export default function AdminStores() {
         </div>
 
         {/* Filter Bar */}
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div className="relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+            <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-3" />
             <input
               placeholder="Filter by store name..."
               value={filters.name}
               onChange={(e) => setFilters((f) => ({ ...f, name: e.target.value }))}
-              className="w-full rounded-xl border border-slate-300 pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
             />
           </div>
           <div className="relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+            <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-3" />
             <input
               placeholder="Filter by email..."
               value={filters.email}
               onChange={(e) => setFilters((f) => ({ ...f, email: e.target.value }))}
-              className="w-full rounded-xl border border-slate-300 pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
             />
           </div>
           <div className="relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+            <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-3" />
             <input
               placeholder="Filter by address..."
               value={filters.address}
               onChange={(e) => setFilters((f) => ({ ...f, address: e.target.value }))}
-              className="w-full rounded-xl border border-slate-300 pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
             />
           </div>
         </div>
@@ -168,7 +168,7 @@ export default function AdminStores() {
             />
 
             {totalPages > 1 && (
-              <div className="flex items-center justify-between px-2 pt-2 text-xs text-slate-500">
+              <div className="flex items-center justify-between px-2 pt-2 text-xs text-slate-500 dark:text-slate-400">
                 <span>
                   Showing {(page - 1) * ITEMS_PER_PAGE + 1} to{' '}
                   {Math.min(page * ITEMS_PER_PAGE, stores.length)} of {stores.length} venues
@@ -177,18 +177,18 @@ export default function AdminStores() {
                   <button
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                     disabled={page === 1}
-                    className="p-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 disabled:opacity-40 transition-colors"
+                    className="p-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 disabled:opacity-40 transition-colors"
                     aria-label="Previous page"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
-                  <span className="font-semibold text-slate-700">
+                  <span className="font-semibold text-slate-700 dark:text-slate-300">
                     Page {page} of {totalPages}
                   </span>
                   <button
                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                     disabled={page === totalPages}
-                    className="p-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 disabled:opacity-40 transition-colors"
+                    className="p-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 disabled:opacity-40 transition-colors"
                     aria-label="Next page"
                   >
                     <ChevronRight className="w-4 h-4" />

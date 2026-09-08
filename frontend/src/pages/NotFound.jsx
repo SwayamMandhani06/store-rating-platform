@@ -3,13 +3,13 @@ import { HelpCircle, ArrowLeft } from 'lucide-react';
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
-      <div className="text-center max-w-md bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-        <div className="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center px-4">
+      <div className="text-center max-w-md bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+        <div className="w-14 h-14 rounded-2xl bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 flex items-center justify-center mx-auto">
           <HelpCircle className="w-8 h-8" />
         </div>
-        <h1 className="font-heading text-3xl font-bold text-slate-900">404 - Page Not Found</h1>
-        <p className="text-sm text-slate-600 leading-relaxed">
+        <h1 className="font-heading text-3xl font-bold text-slate-900 dark:text-white">404 - Page Not Found</h1>
+        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
           The page you are looking for does not exist or has been moved.
         </p>
         <div className="pt-2">

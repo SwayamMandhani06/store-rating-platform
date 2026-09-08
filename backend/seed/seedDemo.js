@@ -9,7 +9,7 @@ async function seedDemo() {
       await sequelize.sync({ alter: true });
     }
 
-    console.log('Seeding demo data into database...');
+    console.log('Seeding authentic Indian demo data into database...');
 
     // 1. Seed System Administrator
     const adminEmail = process.env.SEED_ADMIN_EMAIL || 'admin@storerating.com';
@@ -19,10 +19,10 @@ async function seedDemo() {
     let admin = await User.findOne({ where: { email: adminEmail } });
     if (!admin) {
       admin = await User.create({
-        name: process.env.SEED_ADMIN_NAME || 'Default System Administrator Account',
+        name: process.env.SEED_ADMIN_NAME || 'Rajeshwar Prasad Srivastava',
         email: adminEmail,
         password: adminHashed,
-        address: process.env.SEED_ADMIN_ADDRESS || 'Head Office, Platform Admin Address, Suite 100',
+        address: process.env.SEED_ADMIN_ADDRESS || 'Connaught Place, Central Secretariat, New Delhi 110001',
         role: 'admin',
       });
       console.log(`[Admin] Created: ${admin.email}`);
@@ -30,104 +30,107 @@ async function seedDemo() {
       console.log(`[Admin] Exists: ${admin.email}`);
     }
 
-    // 2. Seed Store Owners & Stores
+    // 2. Seed Store Owners & Stores (diverse Indian regions)
     const defaultOwnerPassword = await bcrypt.hash('Owner@1234', 10);
     const storeOwnersData = [
       {
         user: {
-          name: 'Jonathan Edward Miller',
-          email: 'owner.cafe@storerating.com',
+          name: 'Lakshmi Priya Subramaniam', // 25 chars (South)
+          email: 'lakshmi.subramaniam@gmail.com',
           password: defaultOwnerPassword,
-          address: '742 Evergreen Terrace, Sector 4, Springfield',
+          address: '100 Feet Road, Indiranagar, Bengaluru, Karnataka 560038',
           role: 'owner',
         },
         store: {
-          name: 'The Roasted Bean Artisan Cafe',
-          email: 'contact@roastedbeancafe.com',
-          address: '104 Market Street, Downtown Arts District',
+          name: "Nair's South Indian Delicacies",
+          email: 'contact@nairsdelicacies.in',
+          address: '42 CMH Road, Indiranagar, Bengaluru, Karnataka 560038',
         },
       },
       {
         user: {
-          name: 'Eleanor Beatrice Hughes',
-          email: 'owner.books@storerating.com',
+          name: 'Nileshkumar Rajesh Patel', // 24 chars (West / Gujarat)
+          email: 'nilesh.patel@gmail.com',
           password: defaultOwnerPassword,
-          address: '12 Heritage Way, Old Town Quarter',
+          address: 'Swastik Society, Navrangpura, Ahmedabad, Gujarat 380009',
           role: 'owner',
         },
         store: {
-          name: 'Chapter & Verse Rare Books',
-          email: 'hello@chapterandversebooks.com',
-          address: '45 Library Lane, Cultural Square',
+          name: 'Patel Electronics Emporium',
+          email: 'support@patelelectronics.in',
+          address: '15 Commercial Complex, CG Road, Ahmedabad, Gujarat 380009',
         },
       },
       {
         user: {
-          name: 'Vikramaditya Raj Malhotra',
-          email: 'owner.tech@storerating.com',
+          name: 'Ananya Chattopadhyay Banerjee', // 29 chars (East / Bengal)
+          email: 'ananya.banerjee@gmail.com',
           password: defaultOwnerPassword,
-          address: '88 Cyber Park Boulevard, Silicon Corridor',
+          address: 'Block CF, Sector 1, Salt Lake, Kolkata, West Bengal 700064',
           role: 'owner',
         },
         store: {
-          name: 'Apex Circuit Audio & Tech',
-          email: 'support@apexcircuit.io',
-          address: '500 Innovation Parkway, Suite B',
+          name: 'Annapurna Sweets & Tiffin Center',
+          email: 'orders@annapurnasweets.in',
+          address: '78 Bidhan Sarani, Shyambazar, Kolkata, West Bengal 700004',
         },
       },
       {
         user: {
-          name: 'Guillaume Henri Mercier',
-          email: 'owner.bakery@storerating.com',
+          name: 'Priyanka Deshmukh Joshi', // 23 chars (West / Maharashtra)
+          email: 'priyanka.joshi@gmail.com',
           password: defaultOwnerPassword,
-          address: '33 Rue de Patisserie, West End Promenade',
+          address: 'Pali Hill, Bandra West, Mumbai, Maharashtra 400050',
           role: 'owner',
         },
         store: {
-          name: 'Golden Crumb French Patisserie',
-          email: 'bonjour@goldencrumb.com',
-          address: '22 Riverfront Walk, North Quay',
+          name: 'Bandra Book Nook',
+          email: 'books@bandrabooknook.in',
+          address: '24 Hill Road, Bandra West, Mumbai, Maharashtra 400050',
         },
       },
       {
         user: {
-          name: 'Marcus Alexander Thorne',
-          email: 'owner.gym@storerating.com',
+          name: 'Harpreet Singh Chadha', // 21 chars (North / Punjab)
+          email: 'harpreet.chadha@gmail.com',
           password: defaultOwnerPassword,
-          address: '19 Iron Works Drive, Metro Heights',
+          address: 'Madhya Marg, Sector 18, Chandigarh, Punjab 160018',
           role: 'owner',
         },
         store: {
-          name: 'Ironclad Athletic Performance',
-          email: 'fit@ironcladperformance.com',
-          address: '800 Olympic Way, Sports Complex Arena',
+          name: 'Singh Automobile Workshop',
+          email: 'service@singhauto.in',
+          address: 'Plot 104 Industrial Area Phase 1, Chandigarh, Punjab 160002',
         },
       },
       {
         user: {
-          name: 'Seraphina Marie Laurent',
-          email: 'owner.salon@storerating.com',
+          name: 'Venkata Sai Krishna Reddy', // 25 chars (South / Telugu)
+          email: 'krishna.reddy@gmail.com',
           password: defaultOwnerPassword,
-          address: '61 Botanical Gardens Road, Floral Hill',
+          address: 'Road Number 12, Banjara Hills, Hyderabad, Telangana 500034',
           role: 'owner',
         },
         store: {
-          name: 'Luxe Botanical Hair Studio',
-          email: 'care@luxebotanical.com',
-          address: '710 Fashion Avenue, 2nd Floor',
+          name: 'Chettinad Spice House',
+          email: 'flavour@chettinadspice.in',
+          address: 'Plot 40 Jubilee Enclave, Hitec City, Hyderabad, Telangana 500081',
         },
       },
     ];
 
-    const storeMap = new Map(); // storeKey -> Store instance
+    const storeMap = new Map();
 
     for (const item of storeOwnersData) {
       let owner = await User.findOne({ where: { email: item.user.email } });
       if (!owner) {
         owner = await User.create(item.user);
-        console.log(`[Store Owner] Created: ${owner.email}`);
+        console.log(`[Store Owner] Created: ${owner.email} (${owner.name})`);
       } else {
-        console.log(`[Store Owner] Exists: ${owner.email}`);
+        owner.name = item.user.name;
+        owner.address = item.user.address;
+        await owner.save();
+        console.log(`[Store Owner] Updated/Exists: ${owner.email}`);
       }
 
       let store = await Store.findOne({ where: { email: item.store.email } });
@@ -138,35 +141,35 @@ async function seedDemo() {
         });
         console.log(`[Store] Created: "${store.name}" (Owner: ${owner.email})`);
       } else {
-        if (!store.ownerId) {
-          store.ownerId = owner.id;
-          await store.save();
-        }
-        console.log(`[Store] Exists: "${store.name}"`);
+        store.name = item.store.name;
+        store.address = item.store.address;
+        store.ownerId = owner.id;
+        await store.save();
+        console.log(`[Store] Updated/Exists: "${store.name}"`);
       }
       storeMap.set(item.store.name, store);
     }
 
-    // 3. Seed Normal Users
+    // 3. Seed Normal Users (14 across various Indian states)
     const defaultUserPassword = await bcrypt.hash('User@1234', 10);
     const normalUsersData = [
-      { name: 'Alexander Thomas Wright', email: 'alex.wright@demo.com', address: '12 Elm Street, Oak Ridge, Apartment 4B' },
-      { name: 'Samantha Claire Jenkins', email: 'sam.jenkins@demo.com', address: '88 Meadowbrook Road, Sunset Valley' },
-      { name: 'Benjamin Lucas Bennett', email: 'ben.bennett@demo.com', address: '310 Pine View Terrace, Lakeside Green' },
-      { name: 'Ananya Deepika Sundaram', email: 'ananya.sundaram@demo.com', address: '405 Lotus Enclave, Green Meadows' },
-      { name: 'Christopher Ryan Hayes', email: 'chris.hayes@demo.com', address: '77 Magnolia Avenue, Riverbend South' },
-      { name: 'Victoria Elizabeth Ross', email: 'victoria.ross@demo.com', address: '150 Kingsway Road, Westminster Hill' },
-      { name: 'Daniel Joseph Fernandez', email: 'daniel.f@demo.com', address: '228 Highland Crossing, Cedar Grove' },
-      { name: 'Gabriella Sophia Martinez', email: 'gabriella.m@demo.com', address: '93 Sycamore Boulevard, Sunnyside' },
-      { name: 'Michael Brandon Campbell', email: 'michael.c@demo.com', address: '614 Willow Creek Road, Westford' },
-      { name: 'Hannah Christine Brooks', email: 'hannah.b@demo.com', address: '49 Chestnut Way, Millfield Crossing' },
-      { name: 'Nicholas Andrew Cooper', email: 'nicholas.c@demo.com', address: '181 Aspen Ridge Drive, Blue Valley' },
-      { name: 'Rachel Kimberly Foster', email: 'rachel.f@demo.com', address: '72 Maple Wood Lane, Harbor Point' },
-      { name: 'Zachary Douglas Morgan', email: 'zachary.m@demo.com', address: '503 Birch Street, Summit Ridge Flat 2A' },
-      { name: 'Olivia Margaret Edwards', email: 'olivia.e@demo.com', address: '360 Heather Dell, Spring Valley Heights' },
+      { name: 'Sourav Mukherjee Dutta', email: 'sourav.dutta@gmail.com', address: 'Park Street, Kolkata, West Bengal 700016' },
+      { name: 'Ananya Kapoor Malhotra', email: 'ananya.malhotra@gmail.com', address: 'Greater Kailash 1, New Delhi, Delhi 110048' },
+      { name: 'Rajeshwari Venkataraman Iyer', email: 'rajeshwari.iyer@gmail.com', address: 'Mylapore, Chennai, Tamil Nadu 600004' },
+      { name: 'Vikramaditya Rao Deshmukh', email: 'vikram.deshmukh@gmail.com', address: 'Koregaon Park, Pune, Maharashtra 411001' },
+      { name: 'Divya Meenakshi Sundaram', email: 'divya.sundaram@gmail.com', address: 'Anna Nagar West, Chennai, Tamil Nadu 600040' },
+      { name: 'Rohan Preet Singh Bindra', email: 'rohan.bindra@gmail.com', address: 'Model Town, Ludhiana, Punjab 141002' },
+      { name: 'Bhavna Shaileshbhai Mehta', email: 'bhavna.mehta@gmail.com', address: 'Vastrapur, Ahmedabad, Gujarat 380015' },
+      { name: 'Kavita Chidambaram Chettiar', email: 'kavita.chettiar@gmail.com', address: 'T Nagar, Chennai, Tamil Nadu 600017' },
+      { name: 'Abhishek Surendra Tiwari', email: 'abhishek.tiwari@gmail.com', address: 'Hazratganj, Lucknow, Uttar Pradesh 226001' },
+      { name: 'Meenakshi Ramaswamy Pillai', email: 'meenakshi.pillai@gmail.com', address: 'Jayanagar 4th Block, Bengaluru, Karnataka 560011' },
+      { name: 'Gaurav Shrikant Kulkarni', email: 'gaurav.kulkarni@gmail.com', address: 'Kothrud, Pune, Maharashtra 411038' },
+      { name: 'Sunita Maheshwari Agarwal', email: 'sunita.agarwal@gmail.com', address: 'Vaishali Nagar, Jaipur, Rajasthan 302021' },
+      { name: 'Tarun Jagdishwar Bhattacharya', email: 'tarun.bhattacharya@gmail.com', address: 'Ballygunge, Kolkata, West Bengal 700019' },
+      { name: 'Pranav Venkatesh Namboodiri', email: 'pranav.namboodiri@gmail.com', address: 'Panampilly Nagar, Kochi, Kerala 682036' },
     ];
 
-    const userMap = new Map(); // email -> User instance
+    const userMap = new Map();
 
     for (const u of normalUsersData) {
       let user = await User.findOne({ where: { email: u.email } });
@@ -180,49 +183,52 @@ async function seedDemo() {
         });
         console.log(`[Normal User] Created: ${user.email}`);
       } else {
-        console.log(`[Normal User] Exists: ${user.email}`);
+        user.name = u.name;
+        user.address = u.address;
+        await user.save();
+        console.log(`[Normal User] Updated/Exists: ${user.email}`);
       }
       userMap.set(u.email, user);
     }
 
     // 4. Seed Ratings with varied distribution
-    const cafe = storeMap.get('The Roasted Bean Artisan Cafe');
-    const bookstore = storeMap.get('Chapter & Verse Rare Books');
-    const tech = storeMap.get('Apex Circuit Audio & Tech');
-    const bakery = storeMap.get('Golden Crumb French Patisserie');
-    const salon = storeMap.get('Luxe Botanical Hair Studio');
+    const nairs = storeMap.get("Nair's South Indian Delicacies");
+    const patel = storeMap.get('Patel Electronics Emporium');
+    const annapurna = storeMap.get('Annapurna Sweets & Tiffin Center');
+    const bandraBooks = storeMap.get('Bandra Book Nook');
+    const singhAuto = storeMap.get('Singh Automobile Workshop');
 
     const ratingsPlan = [
-      // Cafe (High ratings, 5 reviews)
-      { userEmail: 'alex.wright@demo.com', storeId: cafe.id, rating: 5 },
-      { userEmail: 'sam.jenkins@demo.com', storeId: cafe.id, rating: 5 },
-      { userEmail: 'ben.bennett@demo.com', storeId: cafe.id, rating: 4 },
-      { userEmail: 'ananya.sundaram@demo.com', storeId: cafe.id, rating: 5 },
-      { userEmail: 'chris.hayes@demo.com', storeId: cafe.id, rating: 4 },
+      // Annapurna Sweets (Top tier, 5 reviews: ~4.80)
+      { userEmail: 'sourav.dutta@gmail.com', storeId: annapurna.id, rating: 5 },
+      { userEmail: 'ananya.malhotra@gmail.com', storeId: annapurna.id, rating: 5 },
+      { userEmail: 'tarun.bhattacharya@gmail.com', storeId: annapurna.id, rating: 5 },
+      { userEmail: 'rajeshwari.iyer@gmail.com', storeId: annapurna.id, rating: 4 },
+      { userEmail: 'abhishek.tiwari@gmail.com', storeId: annapurna.id, rating: 5 },
 
-      // Bookstore (Solid 4-star, 4 reviews)
-      { userEmail: 'victoria.ross@demo.com', storeId: bookstore.id, rating: 4 },
-      { userEmail: 'daniel.f@demo.com', storeId: bookstore.id, rating: 5 },
-      { userEmail: 'gabriella.m@demo.com', storeId: bookstore.id, rating: 4 },
-      { userEmail: 'michael.c@demo.com', storeId: bookstore.id, rating: 3 },
+      // Nair's South Indian Delicacies (High ratings, 5 reviews: ~4.60)
+      { userEmail: 'divya.sundaram@gmail.com', storeId: nairs.id, rating: 5 },
+      { userEmail: 'meenakshi.pillai@gmail.com', storeId: nairs.id, rating: 5 },
+      { userEmail: 'pranav.namboodiri@gmail.com', storeId: nairs.id, rating: 5 },
+      { userEmail: 'kavita.chettiar@gmail.com', storeId: nairs.id, rating: 4 },
+      { userEmail: 'gaurav.kulkarni@gmail.com', storeId: nairs.id, rating: 4 },
 
-      // Tech shop (Mixed ratings, 4 reviews)
-      { userEmail: 'alex.wright@demo.com', storeId: tech.id, rating: 3 },
-      { userEmail: 'hannah.b@demo.com', storeId: tech.id, rating: 2 },
-      { userEmail: 'nicholas.c@demo.com', storeId: tech.id, rating: 4 },
-      { userEmail: 'rachel.f@demo.com', storeId: tech.id, rating: 3 },
+      // Bandra Book Nook (Solid 4.00, 4 reviews)
+      { userEmail: 'vikram.deshmukh@gmail.com', storeId: bandraBooks.id, rating: 4 },
+      { userEmail: 'bhavna.mehta@gmail.com', storeId: bandraBooks.id, rating: 5 },
+      { userEmail: 'sunita.agarwal@gmail.com', storeId: bandraBooks.id, rating: 4 },
+      { userEmail: 'rohan.bindra@gmail.com', storeId: bandraBooks.id, rating: 3 },
 
-      // Bakery (Top tier, 5 reviews)
-      { userEmail: 'sam.jenkins@demo.com', storeId: bakery.id, rating: 5 },
-      { userEmail: 'ananya.sundaram@demo.com', storeId: bakery.id, rating: 5 },
-      { userEmail: 'zachary.m@demo.com', storeId: bakery.id, rating: 5 },
-      { userEmail: 'olivia.e@demo.com', storeId: bakery.id, rating: 4 },
-      { userEmail: 'victoria.ross@demo.com', storeId: bakery.id, rating: 5 },
+      // Patel Electronics Emporium (Mixed 3.00, 4 reviews)
+      { userEmail: 'bhavna.mehta@gmail.com', storeId: patel.id, rating: 3 },
+      { userEmail: 'sunita.agarwal@gmail.com', storeId: patel.id, rating: 2 },
+      { userEmail: 'gaurav.kulkarni@gmail.com', storeId: patel.id, rating: 4 },
+      { userEmail: 'abhishek.tiwari@gmail.com', storeId: patel.id, rating: 3 },
 
-      // Salon (only 1 review)
-      { userEmail: 'gabriella.m@demo.com', storeId: salon.id, rating: 4 },
+      // Singh Automobile Workshop (Single review: 4.00)
+      { userEmail: 'rohan.bindra@gmail.com', storeId: singhAuto.id, rating: 4 },
 
-      // Ironclad Athletic Performance has 0 ratings (testing empty state)
+      // Chettinad Spice House (Hyderabad) has 0 reviews to test empty state
     ];
 
     let ratingsCreated = 0;
@@ -237,11 +243,11 @@ async function seedDemo() {
       if (created) ratingsCreated++;
     }
 
-    console.log(`[Ratings] Created ${ratingsCreated} new ratings.`);
-    console.log('Demo data seeding completed successfully!');
+    console.log(`[Ratings] Inserted ${ratingsCreated} ratings.`);
+    console.log('Indian demo data seeding completed successfully!');
     process.exit(0);
   } catch (err) {
-    console.error('Seeding demo data failed:', err);
+    console.error('Seeding Indian demo data failed:', err);
     process.exit(1);
   }
 }

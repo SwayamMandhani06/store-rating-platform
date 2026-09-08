@@ -57,52 +57,52 @@ export default function AddStore() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col">
       <Navbar />
 
       <main className="max-w-xl mx-auto px-4 py-10 w-full space-y-6 flex-1">
         <div>
           <Link
             to="/admin/stores"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Stores Directory</span>
           </Link>
-          <h1 className="font-heading text-2xl font-bold text-slate-900 mt-2">
+          <h1 className="font-heading text-2xl font-bold text-slate-900 dark:text-white mt-2">
             Register New Store
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Add a physical or digital venue and optionally assign a verified store owner.
           </p>
         </div>
 
         {serverError && (
-          <div className="p-3.5 rounded-xl bg-red-50 text-red-700 text-xs border border-red-200">
+          <div className="p-3.5 rounded-xl bg-red-50 dark:bg-red-950/50 text-red-700 dark:text-red-400 text-xs border border-red-200 dark:border-red-900">
             {serverError}
           </div>
         )}
 
         <form
           onSubmit={handleSubmit}
-          className="bg-white p-7 rounded-2xl border border-slate-200/90 shadow-xs space-y-4"
+          className="bg-white dark:bg-slate-900 p-7 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-4"
           noValidate
         >
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
-              Store Name <span className="text-slate-400 font-normal lowercase">(max 60 characters)</span>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1">
+              Store Name <span className="text-slate-400 dark:text-slate-500 font-normal lowercase">(max 60 characters)</span>
             </label>
             <input
               value={form.name}
               onChange={(e) => update('name', e.target.value)}
               placeholder="e.g. The Roasted Bean Artisan Cafe"
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
             />
-            {errors.name && <p className="text-xs text-red-600 mt-1">{errors.name}</p>}
+            {errors.name && <p className="text-xs text-red-600 dark:text-red-400 mt-1">{errors.name}</p>}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1">
               Store Contact Email
             </label>
             <input
@@ -110,33 +110,33 @@ export default function AddStore() {
               value={form.email}
               onChange={(e) => update('email', e.target.value)}
               placeholder="store@example.com"
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
             />
-            {errors.email && <p className="text-xs text-red-600 mt-1">{errors.email}</p>}
+            {errors.email && <p className="text-xs text-red-600 dark:text-red-400 mt-1">{errors.email}</p>}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
-              Physical / Location Address <span className="text-slate-400 font-normal lowercase">(max 400 characters)</span>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1">
+              Physical / Location Address <span className="text-slate-400 dark:text-slate-500 font-normal lowercase">(max 400 characters)</span>
             </label>
             <textarea
               value={form.address}
               onChange={(e) => update('address', e.target.value)}
               rows={3}
               placeholder="Suite, Street Address, District"
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
             />
-            {errors.address && <p className="text-xs text-red-600 mt-1">{errors.address}</p>}
+            {errors.address && <p className="text-xs text-red-600 dark:text-red-400 mt-1">{errors.address}</p>}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
-              Assign Store Owner <span className="text-slate-400 font-normal lowercase">(optional)</span>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1">
+              Assign Store Owner <span className="text-slate-400 dark:text-slate-500 font-normal lowercase">(optional)</span>
             </label>
             <select
               value={form.ownerId}
               onChange={(e) => update('ownerId', e.target.value)}
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 px-3.5 py-2.5 text-sm bg-white dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"
             >
               <option value="">No owner assigned (unclaimed)</option>
               {owners.map((o) => (
@@ -145,7 +145,7 @@ export default function AddStore() {
                 </option>
               ))}
             </select>
-            <p className="text-[11px] text-slate-400 mt-1.5">
+            <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1.5">
               Only accounts with the "Store Owner" role appear here. Provision owner accounts via Add User first.
             </p>
           </div>
