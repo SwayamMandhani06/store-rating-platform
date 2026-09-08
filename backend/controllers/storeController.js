@@ -80,4 +80,51 @@ async function submitRating(req, res, next) {
   }
 }
 
-module.exports = { listStoresForUser, submitRating };
+// GET /api/stores/:storeId - store details with rating distribution
+async function getStoreDetail(req, res, next) {
+  try {
+    const storeId = req.params.storeId;
+    const store = await Store.findByPk(storeId);
+    if (!store) return res.status(404).json({ message: 'Store not found' });
+
+    const ratings = await Rating.findAll({
+      where: { storeId },
+      attributes: ['rating'],
+    });
+
+    const distribution = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    let total = 0;
+    let sum = 0;
+
+    for (const r of ratings) {
+      if (distribution[r.rating] !== undefined) {
+        distribution[r.rating]++;
+        total++;
+        sum += r.rating;
+      }
+    }
+
+    const myRating = await Rating.findOne({
+      where: { userId: req.user.id, storeId },
+    });
+
+    const overallRating = total > 0 ? Number((sum / total).toFixed(2)) : null;
+
+    return res.json({
+      store: {
+        id: store.id,
+        name: store.name,
+        email: store.email,
+        address: store.address,
+      },
+      overallRating,
+      totalRatings: total,
+      distribution,
+      userRating: myRating ? myRating.rating : null,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = { listStoresForUser, submitRating, getStoreDetail };

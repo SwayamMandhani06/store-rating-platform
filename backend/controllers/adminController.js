@@ -20,12 +20,61 @@ function parseSort(field, allowed, fallback) {
 // GET /api/admin/dashboard
 async function dashboard(req, res, next) {
   try {
-    const [totalUsers, totalStores, totalRatings] = await Promise.all([
+    const [totalUsers, totalStores, totalRatings, recentUsers, allStores, ratingCounts] = await Promise.all([
       User.count(),
       Store.count(),
       Rating.count(),
+      User.findAll({
+        attributes: ['id', 'name', 'email', 'role', 'createdAt'],
+        order: [['createdAt', 'DESC']],
+        limit: 5,
+      }),
+      Store.findAll({
+        attributes: [
+          'id',
+          'name',
+          'email',
+          'address',
+          [fn('AVG', col('ratings.rating')), 'rating'],
+          [fn('COUNT', col('ratings.id')), 'ratingCount'],
+        ],
+        include: [{ model: Rating, as: 'ratings', attributes: [] }],
+        group: ['Store.id'],
+        subQuery: false,
+      }),
+      Rating.findAll({
+        attributes: ['rating', [fn('COUNT', col('id')), 'count']],
+        group: ['rating'],
+        raw: true,
+      }),
     ]);
-    return res.json({ totalUsers, totalStores, totalRatings });
+
+    const topStores = allStores
+      .map((s) => {
+        const json = s.toJSON();
+        json.rating = json.rating ? Number(parseFloat(json.rating).toFixed(2)) : null;
+        json.ratingCount = Number(json.ratingCount || 0);
+        return json;
+      })
+      .filter((s) => s.rating !== null)
+      .sort((a, b) => b.rating - a.rating)
+      .slice(0, 5);
+
+    const ratingsSpread = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    for (const rc of ratingCounts) {
+      if (ratingsSpread[rc.rating] !== undefined) {
+        ratingsSpread[rc.rating] = Number(rc.count);
+      }
+    }
+
+    return res.json({
+      totalUsers,
+      totalStores,
+      totalRatings,
+      recentUsers,
+      topStores,
+      ratingsSpread,
+    });
   } catch (err) {
     next(err);
   }
